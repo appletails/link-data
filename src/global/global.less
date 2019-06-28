@@ -1,0 +1,16 @@
+@primary:#2b85e4;
+@titleColor:#333;
+@contColor:#777;
+@border:#e8eaec;
+
+.flex(@justify:center;@items:center){
+  display: flex;
+  justify-content: @justify;
+  align-items: @items;
+}
+
+.hover(@color:@primary){
+  border-bottom:1px solid @color;
+  color: @color;
+  transition: .6s all;
+}

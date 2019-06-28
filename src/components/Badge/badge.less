@@ -1,0 +1,67 @@
+.badge{
+  width: 450px;
+  padding: 10px 5px;
+  border-radius: 8px;
+  position: relative;
+  transform: translateY(-50%);
+  background-color: #fff;
+  margin: auto 10px;
+  box-shadow: 5px 5px @border;
+  .title{
+    height: 36px;
+    line-height: 36px;
+    .flex(space-between);
+    padding: 0 20px;
+    color: @titleColor;
+    margin-bottom: 5px;
+    span:not(:first-of-type):not(:nth-of-type(2)){
+      cursor: pointer;
+      padding:0 5px;
+      margin: auto 2px;
+      border:1px solid transparent;
+      border-radius: 4px;
+      &:hover{
+        border:1px solid @primary;
+      }
+    }
+  }
+  .body{
+    .flex;
+    .icon{
+      border-radius: 8px;
+      background-color: @border;
+      width: 165px;
+      height: 220px;
+      margin-right: 10px;
+    }
+    .main{
+      flex: 1;
+      height: 100%;
+      &:last-of-type{
+        border-left: 1px solid @border;
+      }
+      li{
+        .flex(space-between);
+        height: 36px;
+        border-radius: 4px;
+        color: @contColor;
+        cursor: pointer;
+        font-size: 14px;
+        margin: auto 5px;
+        &:hover{
+          background-color: @primary;
+          color: #fff;
+          transition: all .3s;
+        }
+        span{
+          padding: 0 10px;
+          text-align: center;
+          flex: 1;
+          &:not(:first-of-type){
+            border-left:1px solid @border; 
+          }
+        }
+      }
+    }
+  }
+}

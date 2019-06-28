@@ -1,0 +1,43 @@
+.foot{
+  width: 100%;
+  border-top: 1px solid @border;
+  min-width: 1020px;
+  color: @contColor;
+  .body{
+    max-width: 1440px;
+    padding: 0 30px;
+    min-width: 1020px;
+    height: 179px;
+    margin: auto;
+    .flex;
+    .left{
+      width: 90px;
+      img{
+        width: 100%;
+      }
+    }
+    .center{
+      margin: auto 20px;
+      ul{
+        .flex;
+        li{
+          padding: 4px 10px;
+          font-size: 16px;
+          border-bottom:1px solid transparent;
+          cursor: pointer;
+          &:hover{
+            .hover;
+          }
+        }
+      }
+      p{
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    .right{
+      width: 90px;
+    }
+  }
+}

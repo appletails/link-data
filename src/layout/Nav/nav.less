@@ -1,0 +1,27 @@
+.nav{
+  border-bottom: 1px solid @border;
+  width: 100%;
+  min-width: 1020px;
+  color: @titleColor;
+  .body{
+    height: 44px;
+    max-width: 1440px;
+    min-width: 1020px;
+    padding: 0 30px;
+    margin: auto;
+    ul{
+      .flex(left);
+      height: 100%;
+      li{
+        &:not(:first-of-type){
+          padding: 0 10px;
+          cursor: pointer;
+          border-bottom:1px solid transparent;
+          &:hover{
+            .hover;
+          }
+        }
+      }
+    }
+  }
+}

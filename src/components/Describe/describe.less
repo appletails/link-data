@@ -1,0 +1,39 @@
+.describe{
+  margin-top:10px;
+  color: @contColor;
+  .body{
+    font-size: 16px;
+    color:@titleColor;
+    border-bottom: 1px solid @border;
+    padding: 10px 0;
+    span{
+      margin-right: 20px;
+    }
+  }
+  .title{
+    padding: 10px 0;
+    font-size: 16px;
+    color:@titleColor;
+  }
+  .list{
+    border-radius: 8px;
+    padding: 10px;
+    border:1px solid @border;
+    p{
+      .flex;
+      padding:5px 0;
+      flex-wrap: wrap;
+      &:not(:first-of-type){
+        border-top:1px solid @border;
+      }
+      span{
+        flex: 1;
+        min-width: 120px;
+      }
+    }
+  }
+}
+.link{
+  color:red;
+  cursor: pointer;
+}
