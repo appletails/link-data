@@ -14,15 +14,22 @@
     padding: 0 20px;
     color: @titleColor;
     margin-bottom: 5px;
-    span:not(:first-of-type):not(:nth-of-type(2)){
+    .link{
       cursor: pointer;
       padding:0 5px;
       margin: auto 2px;
-      border:1px solid transparent;
+      border-bottom:1px solid transparent;
       border-radius: 4px;
+      font-size: 14px;
+      color: @contColor;
       &:hover{
-        border:1px solid @primary;
+        .hover;
       }
+
+    }
+    .action{
+      color: @primary;
+      border-bottom: 1px solid @primary;
     }
   }
   .body{

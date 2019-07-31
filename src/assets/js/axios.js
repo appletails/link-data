@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let base = "http://47.100.217.149:12022";
+let base = process.env.NODE_ENV === "development"?"http://47.100.217.149:12022":".";
 
 // 请求前拦截
 axios.interceptors.request.use(

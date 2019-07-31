@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
 import Relevant from '../../components/Relevant'
-// import Graft from '../../components/Graft'
-import Pie from '../../components/Pie'
-import Line from '../../components/Line'
 import Member from '../../components/Describe/Member'
 import Bot from '../../components/Describe/Bot'
 import Store from '../../components/Describe/Store'
 import styles from './search.less';
 import $http from '../../api'
 import store from '../../redux/store'
-import Title from '../../components/Title'
 
 
 class Search extends Component {
@@ -32,39 +27,29 @@ class Search extends Component {
   async showDom() {
     const nid = this.props.match.params.cont
     const type = this.props.match.params.type
-    let data = {}
     switch (type) {
       case "0":
-        data = await $http.getMmbTopic(nid)
+        await $http.getMmbTopic(nid)
         break;
       case "1":
-        data = await $http.getStoreTopic(nid)
+        await $http.getStoreTopic(nid)
         break;
       case "2":
-        data = await $http.getBotTopic(nid)
+        await $http.getBotTopic(nid)
         break;
       default:
         break;
     }
-    this.changeData(data)
   }
   async componentDidMount() {
     this.showDom()
-  }
-  // 动态监听输入变化inputValue值
-  changeData(data) {
-    const action = {
-      type: 'changeData',
-      value: data
-    }
-    store.dispatch(action); // 解析action
   }
 
   render() {
     let dom = null
     const type = this.props.match.params.type
-    const data = this.state.data
     // console.log(data)
+    const data = this.state.member
     switch (type) {
       case "0":
         // 前端计算比例
@@ -122,41 +107,19 @@ class Search extends Component {
           }
         }
 
-        dom = <div>
-          <Member data={data} />
-          <Title title="可视化数据" />
-          <div className={styles.pie}>
-            <Pie
-              data={pay}
-              id="pay"
-              title="各店的消费比例"
-            />
-            <Pie
-              data={yetai}
-              id="yetai"
-              title="各业态的消费比例"
-            />
-          </div>
-          <Line
-            data={lineTime}
-            YName="消费金额"
-            id="lineTime"
-            title="金额随时间趋势"
-          />
-          <Line
-            data={payTime}
-            YName="消费比数"
-            id="payTime"
-            title="比数随时间趋势"
-          />
-        </div>
-
+        dom = <Member
+          data={data}
+          pay={pay}
+          yetai={yetai}
+          lineTime={lineTime}
+          payTime={payTime}
+        />
         break;
       case "1":
-        dom = <Store data={data} />
+        dom = <Store  />
         break;
       case "2":
-        dom = <Bot data={data} />
+        dom = <Bot />
         break;
       default:
         dom = <div>NODATA</div>

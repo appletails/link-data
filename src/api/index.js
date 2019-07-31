@@ -1,19 +1,14 @@
 import $axios from '../assets/js/axios'
-
+import store from '../redux/store'
 export default {
-  getWeek: async function () {
-    const response = await $axios.get('http://www.crean.top/api/week/data.json')
-    return response.data
-  },
   // ----------------------------------------------------  会员
   /**
     * 会员Badge
     * @param {enum} rank  0: 金额(+) 1: 金额(-) 2: 比数(+) 2: 比数(-) —— 正序(+)-由小到大，倒序(-)-由大到小
     * @param {int}  limit 默认：10
   */
-  mmbBadge: null,
   getMmbBadge: async function (rank, limit) {
-    const response = this.mmbBadge ? this.mmbBadge : await $axios.get(`/api/data/mmb?rank=${rank}&limit=${limit}`)
+    const response = await $axios.get(`/api/data/mmb?rank=${rank}&limit=${limit}`)
     return response.data
   },
   /**
@@ -21,10 +16,18 @@ export default {
     * @param {string} nid
     * @param {string} label
   */
-  mmbTopic: null,
   getMmbTopic: async function (nid, label) {
-    const response = this.mmbTopic ? this.mmbTopic : await $axios.get(`/api/data/topic/mmb?nid=${nid}&label=${label}`)
-    return response.data.length?response.data[0]:[]
+    const response = await $axios.get(`/api/data/topic/mmb?nid=${nid}&label=${label}`)
+    if(!response.data.length){
+      alert("么得数据")
+      return false
+    }
+    const action = {
+      type: 'changeMember',
+      value: response.data.length?response.data[0]:[]
+    }
+    store.dispatch(action); // 解析action
+    return true
   },
   // ----------------------------------------------------  空间
   /**
@@ -32,9 +35,8 @@ export default {
     * @param {enum} rank  0: 楼层 1: 铺位空间
     * @param {int}  limit 默认：10
   */
-  botBadge: null,
   getBotBadge: async function (rank, limit) {
-    const response = this.botBadge ? this.botBadge : await $axios.get(`/api/data/bot?rank=${rank}&limit=${limit}`)
+    const response = await $axios.get(`/api/data/bot?rank=${rank}&limit=${limit}`)
     return response.data
   },
   /**
@@ -42,10 +44,18 @@ export default {
     * @param {string} nid
     * @param {string} label
   */
-  botTopic: null,
   getBotTopic: async function (nid, label) {
-    const response = this.botTopic ? this.botTopic : await $axios.get(`/api/data/topic/bot?nid=${nid}&label=${label}`)
-    return response.data.length?response.data[0]:[]
+    const response = await $axios.get(`/api/data/topic/bot?nid=${nid}&label=${label}`)
+    if(!response.data.length){
+      alert("么得数据")
+      return false
+    }
+    const action = {
+      type: 'changeBot',
+      value: response.data.length?response.data[0]:[]
+    }
+    store.dispatch(action); // 解析action
+    return true
   },
   // ----------------------------------------------------  店铺
   /**
@@ -53,9 +63,8 @@ export default {
     * @param {enum} rank  0: 营业额(+) 1: 营业额(-) 2: 签约日(+) 2: 签约日(-)
     * @param {int}  limit 默认：10
    */
-  storeBadge: null,
   getStoreBadge: async function (rank, limit) {
-    const response = this.storeBadge ? this.storeBadge : await $axios.get(`/api/data/store?rank=${rank}&limit=${limit}`)
+    const response = await $axios.get(`/api/data/store?rank=${rank}&limit=${limit}`)
     return response.data
   },
   /**
@@ -63,19 +72,35 @@ export default {
     * @param {string} nid
     * @param {string} label
   */
-  storeTopic: null,
   getStoreTopic: async function (nid, label) {
-    const response = this.storeTopic ? this.storeTopic : await $axios.get(`/api/data/topic/store?nid=${nid}&label=${label}`)
-    return response.data.length?response.data[0]:[]
+    const response = await $axios.get(`/api/data/topic/store?nid=${nid}&label=${label}`)
+    if(!response.data.length){
+      alert("么得数据")
+      return false
+    }
+    const action = {
+      type: 'changeStore',
+      value: response.data.length?response.data[0]:[]
+    }
+    store.dispatch(action); // 解析action
+    return true
   },
   // ----------------------------------------------------  定制查询服务
+  /**
+    * 关键词Prompt服务
+    * @param {string} keyword
+   */
+  getPrompt: async function (keyword) {
+    const response = await $axios.get(`/api/service/prompt?keyword=${keyword}`)
+    return response.data
+  },
   /**
     * X年度X业态销售合计值(时间段聚合，明确指标)
     * @param {int}    year
     * @param {string} yetaiNID
    */
   getGsOne: async function (year, yetaiNID) {
-    const response = await $axios.get(`/api/service/gs1?year=${year}&yetai=${yetaiNID}`)
+    const response = await $axios.get(`/api/service/gs1?year=${year}&yetaiNID=${yetaiNID}`)
     return response.data
   },
   /**
@@ -94,8 +119,8 @@ export default {
     * @param {string} date
     * @param {string} yetaiNID
   */
-  getGsThree: async function (date, yetaiNID) {
-    const response = await $axios.get(`/api/service/gs3?date=${date}&yetaiNID=${yetaiNID}`)
+  getGsThree: async function (date, yetaiNID,yetaiLabel) {
+    const response = await $axios.get(`/api/service/gs3?date=${date}&yetaiNID=${yetaiNID}&yetaiLabel=${yetaiLabel}`)
     return response.data
   }
 }

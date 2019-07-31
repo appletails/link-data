@@ -23,7 +23,7 @@ class Bot extends Component {
     return (
       <div className={styles.describe}>
         {
-          this.state.data.spaceUnits?<Floor />:<Space />
+          this.state.bot.spaceUnits?<Floor />:<Space />
         }
       </div>
     )

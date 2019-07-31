@@ -6,11 +6,7 @@ class Footer extends Component {
     super(props);
     // 不要在这里调用 this.setState()
     this.state = { nav: [
-      "链接一",
-      "链接二",
-      "链接三",
-      "链接四",
-      "链接五",
+      "此处敬请期待......"
     ] };
   }
   render(){

@@ -13,7 +13,6 @@ class Routes extends Component {
       <HashRouter>
         <ScrollToTop>
           <Route render={(_this = this) => _this.location.pathname === '/' ? '' : <Header />} />
-          {/* <Route component={Header} /> */}
           <Route render={(_this = this) => _this.location.pathname === '/' ? '' : <Nav />} />
           <div className={styles.main}>
             <Switch>

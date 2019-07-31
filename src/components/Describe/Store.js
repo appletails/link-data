@@ -21,34 +21,26 @@ class Store extends Component {
       store.getState()
     )
   }
-  storeType(start,end){
-    return timestamp(end)-timestamp(start)?'有效':'无效'
+  storeType(start, end) {
+    return timestamp(end) - timestamp(start) ? '有效' : '无效'
   }
   // 动态监听输入变化inputValue值
   async changeData(nid) {
     const data = await $http.getBotTopic(encodeURIComponent(nid))
-    if(!data) {
-      alert("没有数据")
-      return
-    }
-    const action = {
-      type: 'changeData',
-      value: data
-    }
-    store.dispatch(action); // 解析action
+    if (!data) return
     this.props.history.push(`/search/2/${encodeURIComponent(nid)}`)
   }
   render() {
-    const title = "店铺基本信息"
-    const data = this.state.data
-    const address = this.state.data.tradeActions?this.state.data.rentActions[0].rentObject[0]:{}
+    const title = "店铺基本信息",
+      data = this.state.store,
+      address = data.tradeActions ? data.rentActions[0].rentObject[0] : {}
     return (
       <div className={styles.describe}>
         <Title title={title} />
         <div className={styles.body}>
           <span>名称：{data.label}</span>
-          <span>位置：<span className={styles.link} onClick={this.changeData.bind(this,address.nid)}>{address.label}</span></span>
-          <span>{data.yetai?`业态：${data.yetai.label}`:''}</span>
+          <span>位置：<span className={styles.link} onClick={this.changeData.bind(this, address.nid)}>{address.label}</span></span>
+          <span>{data.yetai ? `业态：${data.yetai.label}` : ''}</span>
         </div>
         <div className={styles.title}>租约列表</div>
         <div className={styles.list}>
@@ -57,8 +49,8 @@ class Store extends Component {
             <span>{item.nid}</span>
             <span>{item.startDate}</span>
             <span>{item.endDate}</span>
-            <span>{item.rentObject?item.rentObject.map((item,i)=>i === 0?item.label:`,${item.label}`):""}</span>
-            <span>{this.storeType(item.startDate,item.endDate)}</span>
+            <span>{item.rentObject ? item.rentObject.map((item, i) => i === 0 ? item.label : `,${item.label}`) : ""}</span>
+            <span>{this.storeType(item.startDate, item.endDate)}</span>
 
           </p>) : ''}
         </div>
